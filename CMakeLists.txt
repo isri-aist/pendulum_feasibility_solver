@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 
 include(cmake/get-jrl-cmakemodules.cmake)
-
+#
 project(pendulum_feasibility_solver LANGUAGES CXX VERSION 0.1.0)
 
 jrl_configure_defaults()

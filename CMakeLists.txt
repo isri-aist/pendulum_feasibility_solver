@@ -1,26 +1,20 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.22)
 
-set(CXX_DISABLE_WERROR 1)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_EXTENSIONS OFF)
+include(cmake/get-jrl-cmakemodules.cmake)
 
-set(PROJECT_NAME pendulum_feasibility_solver)
-set(PROJECT_VERSION 0.1.0)
-set(PROJECT_DESCRIPTION "")
-set(PROJECT_URL "")
+project(pendulum_feasibility_solver LANGUAGES CXX VERSION 0.1.0)
 
-# jrl-cmakemodules minimal settings
-set(PROJECT_USE_CMAKE_EXPORT TRUE)
-set(CXX_DISABLE_WERROR 1) # FIXME fix errors and re-enable
-
-include(cmake/base.cmake)
-
-project(${PROJECT_NAME} LANGUAGES CXX VERSION ${PROJECT_VERSION})
+jrl_configure_defaults()
 
 # find_package(ScsEigen REQUIRED)
-find_package(SpaceVecAlg REQUIRED)
-find_package(eigen-quadprog REQUIRED)
-
+jrl_find_package(Boost REQUIRED EXPECTED_TARGETS Boost::headers)
+jrl_find_package(SpaceVecAlg REQUIRED EXPECTED_TARGETS SpaceVecAlg::SpaceVecAlg)
+jrl_find_package(eigen-quadprog REQUIRED EXPECTED_TARGETS eigen-quadprog::eigen-quadprog)
 
 add_subdirectory(src)
 
+# Export the package files (headers, targets, config files, etc.)
+jrl_export_package()
+# Print summaries
+jrl_print_dependencies_summary()
+jrl_print_options_summary()
